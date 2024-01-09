@@ -1,0 +1,40 @@
+// basic next setup
+
+npx create-next-app@latest
+/*
+√ What is your project named? ... .
+√ Would you like to use TypeScript? ... No / Yes
+√ Would you like to use ESLint? ... No / Yes
+√ Would you like to use Tailwind CSS? ... No / Yes
+√ Would you like to use `src/` directory? ... No / Yes
+√ Would you like to use App Router? (recommended) ... No / Yes
+√ Would you like to customize the default import alias (@/*)? ... No / Yes
+*/
+
+// in tsconfig, update: "moduleResolution": "node",
+
+// run app
+npm run dev
+
+// add tailwind dependencies (follow https://tailwindcss.com/docs/guides/nextjs)
+
+npm install -D tailwindcss postcss autoprefixer
+npx tailwindcss init -p
+
+// ESLint standard configuration 
+
+add eslint extension
+npm install eslint-config-standard (update .eslintrc.json)
+npm install eslint-plugin-tailwindcss (organize classname logically to make code easier to read)
+npm install eslint-config-prettier (to avoid conflicts between prettier & eslint)
+npm install prettier (and update settings to integrate eslint & prettier with VS code: ctrl+shift+p => Open Settings (JSON))
+npm run lint (to test eslint)
+
+// push code to github
+
+git init
+git add .
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/AbhaySingh5349/airbnb_nextjs.git
+git push -u origin main
