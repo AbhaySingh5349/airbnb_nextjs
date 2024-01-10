@@ -34,7 +34,29 @@ npm run lint (to test eslint)
 
 git init
 git add .
-git commit -m "first commit"
+git commit -m "added tailwind, prettier and linting libraries"
 git branch -M main
 git remote add origin https://github.com/AbhaySingh5349/airbnb_nextjs.git
 git push -u origin main
+
+// delete page.tsx & page.module.css and start creating your routes
+
+// branching (from src control)
+
+(from 3 dots) Stash -> Stash (Include Untracked) -> enter
+create new branch after clicking on bottom left src control icon -> Create bew branch... -> add name -> publish branch
+(from 3 dots) Stash -> Apply Latest Stash
+git add .
+git commit -m "..."
+git push
+Synch Changes
+
+// using google fonts in layout.tsx
+import { NAME_OF_FONT_STYLE } from 'next/font/google';
+const font = NAME_OF_FONT_STYLE({
+  subsets: ['latin, ...'],
+});
+apply by: className={font.className}
+
+// for icons
+npm install @radix-ui/react-icons
