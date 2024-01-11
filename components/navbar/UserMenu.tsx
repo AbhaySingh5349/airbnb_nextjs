@@ -2,9 +2,10 @@
 
 import React, { useState, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
-import { HamburgerMenuIcon } from '@radix-ui/react-icons';
+import { AiOutlineMenu } from 'react-icons/ai';
 
 import { Avatar, MenuItem } from '@/components';
+import { useRegisterModal } from '@/hooks';
 
 <svg
   width="15"
@@ -23,6 +24,7 @@ import { Avatar, MenuItem } from '@/components';
 
 const UserMenu = () => {
   const router = useRouter();
+  const registerModal = useRegisterModal();
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -40,7 +42,7 @@ const UserMenu = () => {
           onClick={toggleOpen}
           className="flex cursor-pointer flex-row items-center gap-3 rounded-full border-[1px] border-neutral-200 p-4 transition duration-500 hover:shadow-md md:px-2 md:py-1"
         >
-          <HamburgerMenuIcon />
+          <AiOutlineMenu size={18} />
           <div className="hidden md:block">
             <Avatar src={''} />
           </div>
@@ -52,6 +54,7 @@ const UserMenu = () => {
         <div className="absolute right-0 top-12 w-[40vw] overflow-hidden rounded-xl bg-white text-sm shadow-md md:w-3/4">
           <div className="flex cursor-pointer flex-col transition duration-500 ease-in-out">
             <>
+              <MenuItem label="Sign Up" onClick={registerModal.onOpen} />
               <MenuItem
                 label="My trips"
                 onClick={() => router.push('/trips')}

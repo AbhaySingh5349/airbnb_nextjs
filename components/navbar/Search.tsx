@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-import { MagnifyingGlassIcon } from '@radix-ui/react-icons';
+import { BiSearch } from 'react-icons/bi';
 
 const Search = () => {
   return (
@@ -16,7 +16,7 @@ const Search = () => {
           Add Guest
         </div>
         <div className="mr-2 rounded-full bg-rose-500 p-2 text-white">
-          <MagnifyingGlassIcon className=" h-4 w-4" />
+          <BiSearch className=" h-4 w-4" />
         </div>
       </div>
     </div>

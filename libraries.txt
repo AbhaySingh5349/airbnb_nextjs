@@ -59,4 +59,21 @@ const font = NAME_OF_FONT_STYLE({
 apply by: className={font.className}
 
 // for icons
-npm install @radix-ui/react-icons
+npm install react-icons
+
+// alternative to Redux for state management
+npm install zustand
+
+// for auth requests
+npm install axios
+
+// handle form
+npm install zod
+npm i react-hook-form
+npm i @hookform/resolvers
+
+// mongodb
+npm install mongoose mongodb
+
+// toast messages (need to create provider before using)
+npm install react-hot-toast
