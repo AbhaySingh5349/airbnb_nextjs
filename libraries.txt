@@ -77,3 +77,9 @@ npm install mongoose mongodb
 
 // toast messages (need to create provider before using)
 npm install react-hot-toast
+
+// auth with nextjs
+npm install next-auth
+
+// hashing password
+npm i --save-dev bcrypt @types/bcrypt

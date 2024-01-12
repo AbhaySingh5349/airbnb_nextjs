@@ -1,9 +1,7 @@
 'use client';
 
 import React, { useCallback } from 'react';
-import axios from 'axios';
 
-import { AiFillGithub } from 'react-icons/ai';
 import { FcGoogle } from 'react-icons/fc';
 // import { signIn } from 'next-auth/react';
 
@@ -15,9 +13,9 @@ import { Modal, FormHeading, FormInput, Button } from '@/components';
 
 import { useRegisterModal } from '@/hooks';
 
-// import { registerUser } from '@/lib/actions';
+import { registerUser } from '@/lib/actions';
 
-// import { RegisterSchema } from '@/lib/validations';
+import { RegisterSchema } from '@/lib/validations';
 
 const RegisterModal = () => {
   const registerModal = useRegisterModal();
@@ -32,23 +30,26 @@ const RegisterModal = () => {
       username: '',
       email: '',
       password: '',
-      confirm_password: '',
     },
   });
 
   const formSubmitHandler: SubmitHandler<FieldValues> = async (data) => {
     try {
       console.log('register data: ', data);
-      // const user = await registerUser({
-      //   username: data.username,
-      //   email: data.email,
-      //   password: data.password,
-      // });
-      // console.log('Registered user: ', user);
-      await axios.post('/adsdpi/register', data);
-      // registerModal.onClose();
+      const validatedData = RegisterSchema.parse(data);
+      console.log('validated data: ', validatedData);
+
+      const user = await registerUser({
+        username: data.username,
+        email: data.email,
+        password: data.password,
+      });
+
+      console.log('Registered user: ', user);
+      registerModal.onClose();
       reset();
     } catch (err) {
+      console.log('ERRORS: ', errors);
       toast.error(`Failed to register: ${err}`);
     }
   };
@@ -85,15 +86,6 @@ const RegisterModal = () => {
         errors={errors}
         required
       />
-      {/* <FormInput
-        id="confirm_password"
-        label="ConfirmPassword"
-        type="password"
-        disabled={isSubmitting}
-        register={register}
-        errors={errors}
-        required
-      /> */}
     </div>
   );
 
@@ -106,12 +98,7 @@ const RegisterModal = () => {
         icon={FcGoogle}
         onClick={() => {}}
       />
-      <Button
-        outline
-        label="Continue with Github"
-        icon={AiFillGithub}
-        onClick={() => {}}
-      />
+
       <div className="my-2 text-center font-light text-neutral-500">
         <p>
           Already have an account?

@@ -1,6 +1,11 @@
 'use client';
 
-import { FieldErrors, FieldValues, UseFormRegister } from 'react-hook-form';
+import {
+  FieldErrors,
+  FieldValues,
+  UseFormRegister,
+  FieldError,
+} from 'react-hook-form';
 import { BiDollar } from 'react-icons/bi';
 
 interface InputProps {
@@ -52,6 +57,11 @@ const FormInput = ({
       >
         {label}
       </label>
+      {errors[id] && (
+        <span className="mt-1 text-sm text-rose-500">
+          {(errors[id] as FieldError).message}
+        </span>
+      )}
     </div>
   );
 };
