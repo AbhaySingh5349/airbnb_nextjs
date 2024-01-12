@@ -11,7 +11,7 @@ import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 
 import { Modal, FormHeading, FormInput, Button } from '@/components';
 
-import { useRegisterModal } from '@/hooks';
+import { useRegisterModal, useLoginModal } from '@/hooks';
 
 import { registerUser } from '@/lib/actions';
 
@@ -19,6 +19,7 @@ import { RegisterSchema } from '@/lib/validations';
 
 const RegisterModal = () => {
   const registerModal = useRegisterModal();
+  const loginModal = useLoginModal();
 
   const {
     handleSubmit,
@@ -39,15 +40,16 @@ const RegisterModal = () => {
       const validatedData = RegisterSchema.parse(data);
       console.log('validated data: ', validatedData);
 
-      const user = await registerUser({
+      await registerUser({
         username: data.username,
         email: data.email,
         password: data.password,
       });
 
-      console.log('Registered user: ', user);
+      // console.log('Registered user: ', user);
       registerModal.onClose();
       reset();
+      loginModal.onOpen();
     } catch (err) {
       console.log('ERRORS: ', errors);
       toast.error(`Failed to register: ${err}`);
@@ -56,7 +58,8 @@ const RegisterModal = () => {
 
   const onToggle = useCallback(() => {
     registerModal.onClose();
-  }, [registerModal]);
+    loginModal.onOpen();
+  }, [registerModal, loginModal]);
 
   const bodyContent = (
     <div className="flex flex-col gap-4">

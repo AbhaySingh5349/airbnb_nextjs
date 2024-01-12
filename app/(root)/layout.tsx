@@ -1,14 +1,17 @@
 import React from 'react';
 
-import { Navbar, RegisterModal } from '@/components';
+import { Navbar, RegisterModal, LoginModal } from '@/components';
 import { ToasterProvider } from '@/providers';
+import { getCurrentUser } from '@/lib/actions';
 
-const Layout = ({ children }: { children: React.ReactNode }) => {
+const Layout = async ({ children }: { children: React.ReactNode }) => {
+  const currentUser = await getCurrentUser();
   return (
     <main>
       {/* <Modal actionLabel="Default Label" title="Hello World" isOpen /> */}
       <RegisterModal />
-      <Navbar />
+      <LoginModal />
+      <Navbar currentUser={JSON.stringify(currentUser)} />
       <ToasterProvider />
       Layout in Home
     </main>

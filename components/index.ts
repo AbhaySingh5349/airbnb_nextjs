@@ -8,5 +8,6 @@ export { default as MenuItem } from './navbar/MenuItem';
 export { default as Modal } from './modals/Modal';
 export { default as Button } from './shared/Button';
 export { default as RegisterModal } from './modals/RegisterModal';
+export { default as LoginModal } from './modals/LoginModal';
 export { default as FormHeading } from './shared/FormHeading';
 export { default as FormInput } from './inputs/FormInput';

@@ -30,7 +30,9 @@ export const authOptions: AuthOptions = {
           email: formCredentials.email,
         });
 
-        if (!existingUser || !existingUser?.password) {
+        console.log('logged-in user: ', existingUser);
+
+        if (!existingUser) {
           throw new Error('Invalid credentials');
         }
 
