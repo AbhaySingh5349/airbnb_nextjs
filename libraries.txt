@@ -93,3 +93,6 @@ in left-side-bar, select OAuth consent screen -> select extrnal -> create
 after adding req info, go to "credentials" -> "create credentials" -> OAuth Client Id -> Authorized redirect URI: http://localhost:3000/api/auth/callback/google
 add GOOGLE_CLIENT_ID & GOOGLE_CLIENT_SECRET to env 
 update nextconfig.js to be able to fetch user image
+
+// work with query params
+npm install query-string

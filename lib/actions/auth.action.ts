@@ -50,6 +50,8 @@ export async function getSession() {
 
 export const getCurrentUser = async () => {
   try {
+    await connectToDB();
+
     const session = await getSession();
 
     console.log('SESSION in get current user: ', session);

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Container, Logo, Search, UserMenu } from '@/components';
+import { Container, Logo, Search, UserMenu, Categories } from '@/components';
 
 interface NavbarProps {
   currentUser?: string | null;
@@ -18,6 +18,7 @@ const Navbar = ({ currentUser }: NavbarProps) => {
           </div>
         </Container>
       </div>
+      <Categories />
     </div>
   );
 };

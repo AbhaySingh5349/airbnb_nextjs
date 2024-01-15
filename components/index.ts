@@ -11,3 +11,5 @@ export { default as RegisterModal } from './modals/RegisterModal';
 export { default as LoginModal } from './modals/LoginModal';
 export { default as FormHeading } from './shared/FormHeading';
 export { default as FormInput } from './inputs/FormInput';
+export { default as CategoryBox } from './shared/CategoryBox';
+export { default as Categories } from './navbar/Categories';
