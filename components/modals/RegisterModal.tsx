@@ -3,7 +3,7 @@
 import React, { useCallback } from 'react';
 
 import { FcGoogle } from 'react-icons/fc';
-// import { signIn } from 'next-auth/react';
+import { signIn } from 'next-auth/react';
 
 import toast from 'react-hot-toast';
 
@@ -46,7 +46,6 @@ const RegisterModal = () => {
         password: data.password,
       });
 
-      // console.log('Registered user: ', user);
       registerModal.onClose();
       reset();
       loginModal.onOpen();
@@ -99,7 +98,7 @@ const RegisterModal = () => {
         outline
         label="Continue with Google"
         icon={FcGoogle}
-        onClick={() => {}}
+        onClick={() => signIn('google')}
       />
 
       <div className="my-2 text-center font-light text-neutral-500">

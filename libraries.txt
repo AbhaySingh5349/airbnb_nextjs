@@ -80,6 +80,16 @@ npm install react-hot-toast
 
 // auth with nextjs
 npm install next-auth
+npm i @next-auth/mongodb-adapter (add your db name also in mongo url)
 
 // hashing password
 npm i --save-dev bcrypt @types/bcrypt
+
+// setup google sign-in
+https://console.cloud.google.com/
+create new project
+open project & search for Enabled API's & services
+in left-side-bar, select OAuth consent screen -> select extrnal -> create
+after adding req info, go to "credentials" -> "create credentials" -> OAuth Client Id -> Authorized redirect URI: http://localhost:3000/api/auth/callback/google
+add GOOGLE_CLIENT_ID & GOOGLE_CLIENT_SECRET to env 
+update nextconfig.js to be able to fetch user image

@@ -31,11 +31,18 @@ export const registerUser = async (params: CreateUserParams) => {
 
     // revalidatePath(path); // gives new data that was submitted (automatic refresh of path we are redirecting to)
 
-    return JSON.stringify(user);
+    return user;
   } catch (err: any) {
     return new NextResponse(err, { status: 500 });
   }
 };
+
+/*
+to avoid warning: we need to modify keys in user model to pass over components as props eg. Date keys
+
+Warning: Only plain objects can be passed to Client Components from Server Components. 
+Objects with toJSON methods are not supported. Convert it manually to a simple value before passing it to props
+*/
 
 export async function getSession() {
   return await getServerSession(authOptions);
@@ -45,11 +52,13 @@ export const getCurrentUser = async () => {
   try {
     const session = await getSession();
 
+    console.log('SESSION in get current user: ', session);
+
     if (!session?.user?.email) {
       return null;
     }
 
-    const currentUser = await await User.findOne({
+    const currentUser = await User.findOne({
       email: session.user.email,
     });
 
