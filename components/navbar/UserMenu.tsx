@@ -2,6 +2,8 @@
 
 import React, { useState, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
+import { signOut } from 'next-auth/react';
+
 import { AiOutlineMenu } from 'react-icons/ai';
 
 import { Avatar, MenuItem } from '@/components';
@@ -29,6 +31,8 @@ interface NavbarProps {
 </svg>;
 
 const UserMenu = ({ currentUser }: NavbarProps) => {
+  console.log('user in menu: ', currentUser);
+  console.log('typeof user in menu: ', typeof currentUser);
   const router = useRouter();
   const registerModal = useRegisterModal();
   const loginModal = useLoginModal();
@@ -60,7 +64,12 @@ const UserMenu = ({ currentUser }: NavbarProps) => {
         // ease-out duration-300
         <div className="absolute right-0 top-12 w-[40vw] overflow-hidden rounded-xl bg-white text-sm shadow-md md:w-3/4">
           <div className="flex cursor-pointer flex-col">
-            {currentUser ? (
+            {currentUser === 'null' ? (
+              <>
+                <MenuItem label="Login" onClick={loginModal.onOpen} />
+                <MenuItem label="Sign up" onClick={registerModal.onOpen} />
+              </>
+            ) : (
               <>
                 <MenuItem
                   label="My trips"
@@ -80,12 +89,7 @@ const UserMenu = ({ currentUser }: NavbarProps) => {
                 />
                 <MenuItem label="Airbnb your home" onClick={() => {}} />
                 <hr />
-                <MenuItem label="Logout" onClick={() => {}} />
-              </>
-            ) : (
-              <>
-                <MenuItem label="Login" onClick={loginModal.onOpen} />
-                <MenuItem label="Sign up" onClick={registerModal.onOpen} />
+                <MenuItem label="Logout" onClick={() => signOut()} />
               </>
             )}
           </div>
