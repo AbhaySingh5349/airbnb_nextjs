@@ -96,3 +96,17 @@ update nextconfig.js to be able to fetch user image
 
 // work with query params
 npm install query-string
+
+// to get list of countries
+npm i world-countries
+
+// to select drop down options from map
+npm i react-select
+
+// to add map 
+npm i react-leaflet
+npm i --save-dev @types/leaflet
+npm i @types/leaflet
+
+// to use cloudinary for storing images
+npm install next-cloudinary

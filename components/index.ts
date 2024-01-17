@@ -13,3 +13,8 @@ export { default as FormHeading } from './shared/FormHeading';
 export { default as FormInput } from './inputs/FormInput';
 export { default as CategoryBox } from './shared/CategoryBox';
 export { default as Categories } from './navbar/Categories';
+export { default as CategoryInput } from './inputs/CategoryInput';
+export { default as Counter } from './inputs/Counter';
+export { default as Map } from './shared/Map';
+export { default as RentModal } from './modals/RentModal';
+export { default as ImageUpload } from './inputs/ImageUpload';

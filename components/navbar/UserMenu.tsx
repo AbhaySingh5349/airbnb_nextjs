@@ -7,7 +7,7 @@ import { signOut } from 'next-auth/react';
 import { AiOutlineMenu } from 'react-icons/ai';
 
 import { Avatar, MenuItem } from '@/components';
-import { useRegisterModal, useLoginModal } from '@/hooks';
+import { useRegisterModal, useLoginModal, useRentModal } from '@/hooks';
 
 interface UserMenuProps {
   currentUser?: string | null;
@@ -32,8 +32,10 @@ const UserMenu = ({ currentUser }: UserMenuProps) => {
   const parsedCurrentUser = currentUser && JSON.parse(currentUser || '');
 
   const router = useRouter();
+
   const registerModal = useRegisterModal();
   const loginModal = useLoginModal();
+  const rentModal = useRentModal();
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -41,10 +43,21 @@ const UserMenu = ({ currentUser }: UserMenuProps) => {
     setIsOpen((value) => !value);
   }, []);
 
+  const onRent = useCallback(() => {
+    if (!currentUser) {
+      return loginModal.onOpen();
+    }
+
+    rentModal.onOpen();
+  }, [loginModal, rentModal, currentUser]);
+
   return (
     <div className="relative">
       <div className="flex flex-row items-center gap-3">
-        <div className="hidden cursor-pointer rounded-full px-4 py-3 text-sm font-semibold transition hover:bg-neutral-100 md:block">
+        <div
+          onClick={onRent}
+          className="hidden cursor-pointer rounded-full px-4 py-3 text-sm font-semibold transition hover:bg-neutral-100 md:block"
+        >
           Airbnb your home
         </div>
         <div
@@ -80,7 +93,7 @@ const UserMenu = ({ currentUser }: UserMenuProps) => {
                   label="My properties"
                   onClick={() => router.push('/properties')}
                 />
-                <MenuItem label="Airbnb your home" onClick={() => {}} />
+                <MenuItem label="Airbnb your home" onClick={rentModal.onOpen} />
                 <hr />
                 <MenuItem label="Logout" onClick={() => signOut()} />
               </>
