@@ -3,7 +3,10 @@ import React, { useCallback, useMemo } from 'react';
 import { toast } from 'react-hot-toast';
 
 import { useLoginModal } from '@/hooks';
-import { addListingToFavourite } from '@/lib/actions';
+import {
+  addListingToFavourite,
+  removeListingFromFavourite,
+} from '@/lib/actions';
 
 interface IUseFavorite {
   listingId: string;
@@ -18,7 +21,8 @@ const useFavorite = ({ listingId, currentUser }: IUseFavorite) => {
   const parsedCurrentUser = currentUser && JSON.parse(currentUser || '');
 
   const hasFavorited = useMemo(() => {
-    const list = parsedCurrentUser?.favoritePlaces || [];
+    const list = parsedCurrentUser?.favouritePlaces || [];
+    console.log('ALREADY FAV LIST: ', list);
 
     return list.includes(listingId);
   }, [parsedCurrentUser, listingId]);
@@ -32,14 +36,15 @@ const useFavorite = ({ listingId, currentUser }: IUseFavorite) => {
       }
 
       try {
-        // let request;
-
         if (hasFavorited) {
-          //   request = () => axios.delete(`/api/favorites/${listingId}`);
-          console.log('IN FAVOURITED');
+          console.log('Removing from favourites : ', listingId);
+          const updatedUser = removeListingFromFavourite({
+            currentUser: parsedCurrentUser,
+            listingId,
+          });
+          console.log('updatedUser in useFavourite hook: ', updatedUser);
         } else {
-          //   request = () => axios.post(`/api/favorites/${listingId}`);
-          console.log('IN NOT FAVOURITED: ', listingId);
+          console.log('Adding to favourites : ', listingId);
           const updatedUser = await addListingToFavourite({
             currentUser: parsedCurrentUser,
             listingId,
