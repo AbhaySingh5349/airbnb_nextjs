@@ -35,7 +35,7 @@ const ListingCard = ({
   const parsedReservation = reservation && JSON.parse(reservation || '');
 
   const parsedLocation =
-    parsedListing._doc.location && JSON.parse(parsedListing._doc.location);
+    parsedListing?._doc.location && JSON.parse(parsedListing?._doc.location);
   console.log('parsedLocation: ', parsedLocation);
 
   const handleCancel = useCallback(
@@ -56,8 +56,8 @@ const ListingCard = ({
       return parsedReservation.totalPrice;
     }
 
-    return parsedListing._doc.price;
-  }, [parsedReservation, parsedListing._doc.price]);
+    return parsedListing?._doc.price;
+  }, [parsedReservation, parsedListing?._doc.price]);
 
   const reservationDate = useMemo(() => {
     if (!parsedReservation) {
@@ -72,7 +72,7 @@ const ListingCard = ({
 
   return (
     <div
-      onClick={() => router.push(`/listings/${parsedListing._doc.id}`)}
+      onClick={() => router.push(`/listings/${parsedListing?._doc.id}`)}
       className="group col-span-1 cursor-pointer"
     >
       <div className="flex w-full flex-col gap-2">
@@ -80,12 +80,12 @@ const ListingCard = ({
           <Image
             fill
             className="h-full w-full object-cover transition group-hover:scale-110"
-            src={parsedListing._doc.imageSrc}
+            src={parsedListing?._doc.imageSrc}
             alt="Listing"
           />
           <div className="absolute right-3 top-3">
             <HeartButton
-              listingId={parsedListing._doc.id}
+              listingId={parsedListing?._doc._id}
               currentUser={currentUser}
             />
           </div>
@@ -94,7 +94,7 @@ const ListingCard = ({
           {parsedLocation?.region}, {parsedLocation?.label}
         </div>
         <div className="font-light text-neutral-500">
-          {reservationDate || parsedListing._doc.category}
+          {reservationDate || parsedListing?._doc.category}
         </div>
         <div className="flex flex-row items-center gap-1">
           <div className="font-semibold">$ {price}</div>

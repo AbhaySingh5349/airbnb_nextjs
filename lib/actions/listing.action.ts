@@ -3,7 +3,7 @@
 import { NextResponse } from 'next/server';
 
 import { connectToDB } from '../mongoose';
-import { Listing } from '@/database';
+import { User, Listing } from '@/database';
 
 export const addListing = async (params: any) => {
   try {
@@ -160,6 +160,36 @@ export const getListings = async () => {
     return safeListings;
   } catch (err: any) {
     console.log('error in get listings: ', err);
+    throw new Error(err);
+  }
+};
+
+export const addListingToFavourite = async (params: any) => {
+  try {
+    await connectToDB();
+
+    const { currentUser, listingId } = params;
+
+    // console.log('IN addListingToFavourite: ', currentUser);
+    // console.log('IN addListingToFavourite: ', listingId);
+
+    if (!listingId) throw new Error('Invalid Listing Id to add in Favourites');
+
+    const favouritePlaces = [...(currentUser.favouritePlaces || []), listingId];
+
+    console.log('IN addListingToFavourite: ', favouritePlaces);
+
+    const user = User.findByIdAndUpdate(
+      currentUser._id,
+      {
+        $set: { favouritePlaces },
+      },
+      { new: true }
+    );
+
+    return user;
+  } catch (err: any) {
+    console.log('error in adding listing to favourites: ', err);
     throw new Error(err);
   }
 };
