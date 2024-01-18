@@ -70,6 +70,7 @@ export const getCurrentUser = async () => {
 
     return currentUser;
   } catch (error: any) {
+    // not throwing error since some pages are also for signed-out users
     return null;
   }
 };

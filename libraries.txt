@@ -110,3 +110,6 @@ npm i @types/leaflet
 
 // to use cloudinary for storing images
 npm install next-cloudinary
+
+// for date manipulation
+npm i date-fns

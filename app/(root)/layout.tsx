@@ -15,7 +15,7 @@ const Layout = async ({ children }: { children: React.ReactNode }) => {
       <RentModal currentUser={JSON.stringify(currentUser)} />
       <Navbar currentUser={JSON.stringify(currentUser)} />
       <ToasterProvider />
-      Layout in Home
+      <div className="pb-20 pt-28">{children}</div>
     </main>
   );
 };
