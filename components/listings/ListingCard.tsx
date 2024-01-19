@@ -30,7 +30,8 @@ const ListingCard = ({
   const router = useRouter();
 
   const parsedListing = listing && JSON.parse(listing || '');
-  console.log('parsedListing: ', parsedListing); // imageSrc
+  console.log('parsedListing in ListingCard.tsx: ', parsedListing); // imageSrc
+  console.log('ID: ', parsedListing?._doc._id);
 
   const parsedReservation = reservation && JSON.parse(reservation || '');
 
@@ -72,7 +73,7 @@ const ListingCard = ({
 
   return (
     <div
-      onClick={() => router.push(`/listings/${parsedListing?._doc.id}`)}
+      onClick={() => router.push(`/listings/${parsedListing?._doc._id}`)}
       className="group col-span-1 cursor-pointer"
     >
       <div className="flex w-full flex-col gap-2">

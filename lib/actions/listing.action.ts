@@ -164,6 +164,24 @@ export const getListings = async () => {
   }
 };
 
+export const getListingById = async (params: any) => {
+  try {
+    await connectToDB();
+
+    const { listingId } = params;
+
+    if (!listingId) throw new Error('Invalid Listing Id to fetch');
+
+    console.log('listingId: ', listingId);
+    const listing = await Listing.findById(listingId);
+
+    return listing;
+  } catch (err: any) {
+    console.log('error in get listing  by id: ', err);
+    throw new Error(err);
+  }
+};
+
 export const addListingToFavourite = async (params: any) => {
   try {
     await connectToDB();

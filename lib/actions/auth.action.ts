@@ -74,3 +74,22 @@ export const getCurrentUser = async () => {
     return null;
   }
 };
+
+export const getUserById = async (params: any) => {
+  try {
+    await connectToDB();
+
+    const { userId } = params;
+
+    const currentUser = await User.findById(userId);
+
+    if (!currentUser) {
+      return null;
+    }
+
+    return currentUser;
+  } catch (error: any) {
+    // not throwing error since some pages are also for signed-out users
+    return null;
+  }
+};
