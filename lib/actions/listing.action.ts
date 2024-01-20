@@ -226,7 +226,29 @@ export const removeListingFromFavourite = async (params: any) => {
 
     return user;
   } catch (err: any) {
-    console.log('error in adding listing to favourites: ', err);
+    console.log('error in removing listing to favourites: ', err);
+    throw new Error(err);
+  }
+};
+
+export const getFavouriteListings = async (params: any) => {
+  try {
+    await connectToDB();
+
+    const { currentUser } = params;
+
+    // console.log('currentUser?.favouritePlaces: ', currentUser);
+
+    // const favouritePlaces = JSON.stringify(currentUser?.favouritePlaces);
+    // console.log('IN getFavouriteListings: ', favouritePlaces);
+
+    const listings = await Listing.find({
+      _id: { $in: currentUser?.favouritePlaces },
+    });
+
+    return listings;
+  } catch (err: any) {
+    console.log('error in fetching listing from favourites: ', err);
     throw new Error(err);
   }
 };

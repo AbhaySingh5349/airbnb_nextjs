@@ -38,7 +38,7 @@ const useFavorite = ({ listingId, currentUser }: IUseFavorite) => {
       try {
         if (hasFavorited) {
           console.log('Removing from favourites : ', listingId);
-          const updatedUser = removeListingFromFavourite({
+          const updatedUser = await removeListingFromFavourite({
             currentUser: parsedCurrentUser,
             listingId,
           });
