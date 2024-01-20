@@ -106,7 +106,7 @@ npm i react-select
 // to add map 
 npm i react-leaflet
 npm i --save-dev @types/leaflet
-npm i @types/leaflet
+npm i leaflet @types/leaflet
 
 // to use cloudinary for storing images
 npm install next-cloudinary
@@ -119,4 +119,4 @@ npm i --save-dev @types/react-date-range
 // to deal with conflicting dependencies
 npm config set legacy-peer-deps true
 npm update --save --legacy-peer-deps
-npm install
+npm install   
