@@ -17,9 +17,9 @@ import {
   FormInput,
   FormHeading,
   ImageUpload,
+  CountrySelect,
 } from '@/components';
 
-import CountrySelect from '../inputs/CountrySelect';
 import { categories } from '@/constants';
 
 import { addListing } from '@/lib/actions';

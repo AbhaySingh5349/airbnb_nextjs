@@ -54,86 +54,6 @@ export const addListing = async (params: any) => {
   }
 };
 
-// export async function getListings(params: IListingsParams) {
-//   try {
-//     const {
-//       userId,
-//       roomCount,
-//       guestCount,
-//       bathroomCount,
-//       locationValue,
-//       startDate,
-//       endDate,
-//       category,
-//     } = params;
-
-//     // eslint-disable-next-line prefer-const
-//     let query: any = {};
-
-//     if (userId) {
-//       query.userId = userId;
-//     }
-
-//     if (category) {
-//       query.category = category;
-//     }
-
-//     if (roomCount) {
-//       query.roomCount = {
-//         gte: +roomCount,
-//       };
-//     }
-
-//     if (guestCount) {
-//       query.guestCount = {
-//         gte: +guestCount,
-//       };
-//     }
-
-//     if (bathroomCount) {
-//       query.bathroomCount = {
-//         gte: +bathroomCount,
-//       };
-//     }
-
-//     if (locationValue) {
-//       query.locationValue = locationValue;
-//     }
-
-//     if (startDate && endDate) {
-//       const filterReservations = {
-//         $or: [
-//           {
-//             'reservations.endDate': { $gte: startDate },
-//             'reservations.startDate': { $lte: startDate },
-//           },
-//           {
-//             'reservations.startDate': { $lte: endDate },
-//             'reservations.endDate': { $gte: endDate },
-//           },
-//         ],
-//       };
-
-//       query.reservations = {
-//         $not: {
-//           $elemMatch: filterReservations,
-//         },
-//       };
-//     }
-
-//     const listings = await Listing.find(query).sort({ createdAt: -1 });
-
-//     const safeListings = listings.map((listing) => ({
-//       ...listing,
-//       createdAt: listing.createdAt.toISOString(),
-//     }));
-
-//     return safeListings;
-//   } catch (error: any) {
-//     throw new Error(error);
-//   }
-// }
-
 export interface IListingsParams {
   userId?: string;
   guestCount?: number;
@@ -149,12 +69,68 @@ export const getListings = async (params: IListingsParams) => {
   try {
     await connectToDB();
 
-    const { userId } = params;
+    const {
+      userId,
+      guestCount,
+      roomCount,
+      bathroomCount,
+      startDate,
+      endDate,
+      location,
+      category,
+    } = params;
 
     const query: any = {};
 
     if (userId) {
       query.userId = userId;
+    }
+
+    if (category) {
+      query.category = category;
+    }
+
+    if (roomCount) {
+      query.roomCount = {
+        $gte: +roomCount,
+      };
+    }
+
+    if (guestCount) {
+      query.guestCount = {
+        $gte: +guestCount,
+      };
+    }
+
+    if (bathroomCount) {
+      query.bathroomCount = {
+        $gte: +bathroomCount,
+      };
+    }
+
+    if (location) {
+      query.location = location;
+    }
+
+    if (startDate && endDate) {
+      const filterReservations = {
+        $or: [
+          {
+            'reservations.endDate': { $gte: startDate },
+            'reservations.startDate': { $lte: startDate },
+          },
+          {
+            'reservations.startDate': { $lte: endDate },
+            'reservations.endDate': { $gte: endDate },
+          },
+        ],
+      };
+
+      query.reservations = {
+        $not: {
+          $elemMatch: filterReservations,
+        },
+      };
     }
 
     const listings = await Listing.find(query);

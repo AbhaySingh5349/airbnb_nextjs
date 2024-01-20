@@ -3,3 +3,4 @@ export { default as useLoginModal } from './useLoginModal';
 export { default as useRentModal } from './useRentModal';
 export { default as useCountries } from './useCountries';
 export { default as useFavorite } from './useFavourite';
+export { default as useSearchModal } from './useSearchModal';

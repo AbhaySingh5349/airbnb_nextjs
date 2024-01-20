@@ -2,16 +2,26 @@ import React from 'react';
 
 import { Container, EmptyState, ListingCard } from '@/components';
 
-import { getCurrentUser, getListings, IListingsParams } from '@/lib/actions';
+import { getCurrentUser, getListings } from '@/lib/actions';
 
 interface HomeParams {
-  params: IListingsParams;
+  searchParams: {
+    userId?: string;
+    guestCount?: number;
+    roomCount?: number;
+    bathroomCount?: number;
+    startDate?: string;
+    endDate?: string;
+    location?: string;
+    category?: string;
+  };
 }
 
-const Page = async ({ params }: HomeParams) => {
+const Page = async ({ searchParams }: HomeParams) => {
   const currentUser = await getCurrentUser();
 
-  const listings = await getListings(params);
+  console.log('HOME PARAMS: ', searchParams);
+  const listings = await getListings(searchParams);
 
   if (!listings) {
     return <EmptyState />;

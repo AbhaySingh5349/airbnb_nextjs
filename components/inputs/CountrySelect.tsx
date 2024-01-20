@@ -17,7 +17,7 @@ interface CountrySelectProps {
   onChange: (value: CountrySelectValue) => void;
 }
 
-const CountrySelect = ({ value, onChange }: CountrySelectProps) => {
+export const CountrySelect = ({ value, onChange }: CountrySelectProps) => {
   const { getAll } = useCountries();
 
   return (
@@ -58,5 +58,3 @@ const CountrySelect = ({ value, onChange }: CountrySelectProps) => {
     </div>
   );
 };
-
-export default CountrySelect;

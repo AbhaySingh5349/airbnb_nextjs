@@ -1,6 +1,12 @@
 import React from 'react';
 
-import { Navbar, RegisterModal, LoginModal, RentModal } from '@/components';
+import {
+  Navbar,
+  RegisterModal,
+  LoginModal,
+  RentModal,
+  SearchModal,
+} from '@/components';
 import { ToasterProvider } from '@/providers';
 import { getCurrentUser } from '@/lib/actions';
 
@@ -12,6 +18,7 @@ const Layout = async ({ children }: { children: React.ReactNode }) => {
       {/* <Modal actionLabel="Default Label" title="Hello World" isOpen /> */}
       <RegisterModal />
       <LoginModal />
+      <SearchModal />
       <RentModal currentUser={JSON.stringify(currentUser)} />
       <Navbar currentUser={JSON.stringify(currentUser)} />
       <ToasterProvider />
