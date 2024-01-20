@@ -31,12 +31,12 @@ const ListingCard = ({
 
   const parsedListing = listing && JSON.parse(listing || '');
   console.log('parsedListing in ListingCard.tsx: ', parsedListing); // imageSrc
-  console.log('ID: ', parsedListing?._doc._id);
+  console.log('ID: ', parsedListing?._id);
 
   const parsedReservation = reservation && JSON.parse(reservation || '');
 
   const parsedLocation =
-    parsedListing?._doc.location && JSON.parse(parsedListing?._doc.location);
+    parsedListing?.location && JSON.parse(parsedListing?.location);
   console.log('parsedLocation: ', parsedLocation);
 
   const handleCancel = useCallback(
@@ -57,8 +57,8 @@ const ListingCard = ({
       return parsedReservation.totalPrice;
     }
 
-    return parsedListing?._doc.price;
-  }, [parsedReservation, parsedListing?._doc.price]);
+    return parsedListing?.price;
+  }, [parsedReservation, parsedListing?.price]);
 
   const reservationDate = useMemo(() => {
     if (!parsedReservation) {
@@ -73,7 +73,7 @@ const ListingCard = ({
 
   return (
     <div
-      onClick={() => router.push(`/listings/${parsedListing?._doc._id}`)}
+      onClick={() => router.push(`/listings/${parsedListing?._id}`)}
       className="group col-span-1 cursor-pointer"
     >
       <div className="flex w-full flex-col gap-2">
@@ -81,12 +81,12 @@ const ListingCard = ({
           <Image
             fill
             className="h-full w-full object-cover transition group-hover:scale-110"
-            src={parsedListing?._doc.imageSrc}
+            src={parsedListing?.imageSrc}
             alt="Listing"
           />
           <div className="absolute right-3 top-3">
             <HeartButton
-              listingId={parsedListing?._doc._id}
+              listingId={parsedListing?._id}
               currentUser={currentUser}
             />
           </div>
@@ -95,7 +95,7 @@ const ListingCard = ({
           {parsedLocation?.region}, {parsedLocation?.label}
         </div>
         <div className="font-light text-neutral-500">
-          {reservationDate || parsedListing?._doc.category}
+          {reservationDate || parsedListing?.category}
         </div>
         <div className="flex flex-row items-center gap-1">
           <div className="font-semibold">$ {price}</div>

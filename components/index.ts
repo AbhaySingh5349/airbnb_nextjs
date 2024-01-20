@@ -27,3 +27,5 @@ export { default as ListingCategory } from './listings/ListingCategory';
 export { default as ListingInfo } from './listings/ListingInfo';
 export { default as DatePicker } from './inputs/DatePicker';
 export { default as ListingReservation } from './listings/ListingReservation';
+export { default as Trips } from './trips/Trips';
+export { default as Reservations } from './reservations/Reservations';

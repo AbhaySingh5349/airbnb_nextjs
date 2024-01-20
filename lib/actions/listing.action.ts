@@ -150,14 +150,7 @@ export const getListings = async () => {
     await connectToDB();
 
     const listings = await Listing.find({});
-    // return listings;
-
-    const safeListings = listings.map((listing) => ({
-      ...listing,
-      createdAt: listing.createdAt.toISOString(),
-    }));
-
-    return safeListings;
+    return listings;
   } catch (err: any) {
     console.log('error in get listings: ', err);
     throw new Error(err);
@@ -260,9 +253,31 @@ export const createReservation = async (params: any) => {
       { new: true }
     );
 
-    console.log('createReservation: ', reservation);
-
     return reservation;
+  } catch (err: any) {
+    console.log('error in adding listing to favourites: ', err);
+    throw new Error(err);
+  }
+};
+
+export const deleteReservation = async (params: any) => {
+  try {
+    await connectToDB();
+
+    const { reservationId } = params;
+
+    if (!reservationId)
+      throw new Error('Invalid Reservation Id to create delete');
+
+    const reservation = await Reservation.findById(reservationId);
+
+    await Reservation.deleteOne({ _id: reservationId });
+
+    await Listing.findByIdAndUpdate(
+      reservation.listingId,
+      { $pull: { reservations: reservationId } },
+      { new: true }
+    );
   } catch (err: any) {
     console.log('error in adding listing to favourites: ', err);
     throw new Error(err);
@@ -272,12 +287,12 @@ export const createReservation = async (params: any) => {
 interface GetReservationsParams {
   listingId?: string;
   userId?: string;
-  authorId?: string;
+  ownerId?: string;
 }
 
 export async function getReservations(params: GetReservationsParams) {
   try {
-    const { listingId, userId, authorId } = params;
+    const { listingId, userId, ownerId } = params;
 
     const query: any = {};
 
@@ -289,15 +304,20 @@ export async function getReservations(params: GetReservationsParams) {
       query.userId = userId;
     }
 
-    if (authorId) {
-      query.listingId = { userId: authorId };
-    }
-
     const reservations = await Reservation.find(query)
       .sort({ createdAt: -1 })
-      .populate({ path: 'listingId', model: Listing, select: '_id userId' });
+      .populate({
+        path: 'listingId',
+        model: Listing,
+        ...(ownerId ? { match: { userId: ownerId } } : {}),
+      });
 
-    return reservations;
+    // return reservations;
+    const filteredReservations = reservations.filter(
+      (reservation) => reservation.listingId !== null
+    );
+
+    return filteredReservations;
   } catch (error: any) {
     throw new Error(error);
   }

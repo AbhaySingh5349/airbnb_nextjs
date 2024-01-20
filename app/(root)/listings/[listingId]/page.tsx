@@ -25,8 +25,6 @@ const Page = async ({ params }: IParams) => {
   const stringifyUser = currentUser ? JSON.stringify(currentUser) : '';
   const reservations = await getReservations({ listingId: listing._id });
 
-  console.log('reservations: ', reservations);
-
   return (
     <div>
       {/* @ts-ignore */}
