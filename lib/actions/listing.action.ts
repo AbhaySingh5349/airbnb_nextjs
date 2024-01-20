@@ -3,7 +3,7 @@
 import { NextResponse } from 'next/server';
 
 import { connectToDB } from '../mongoose';
-import { User, Listing } from '@/database';
+import { User, Listing, Reservation } from '@/database';
 
 export const addListing = async (params: any) => {
   try {
@@ -237,3 +237,68 @@ export const removeListingFromFavourite = async (params: any) => {
     throw new Error(err);
   }
 };
+
+export const createReservation = async (params: any) => {
+  try {
+    await connectToDB();
+
+    const { userId, listingId, startDate, endDate, totalPrice } = params;
+
+    if (!listingId) throw new Error('Invalid Listing Id to create reservation');
+
+    const reservation = await Reservation.create({
+      userId,
+      listingId,
+      startDate,
+      endDate,
+      totalPrice,
+    });
+
+    await Listing.findByIdAndUpdate(
+      listingId,
+      { $push: { reservations: reservation._id } },
+      { new: true }
+    );
+
+    console.log('createReservation: ', reservation);
+
+    return reservation;
+  } catch (err: any) {
+    console.log('error in adding listing to favourites: ', err);
+    throw new Error(err);
+  }
+};
+
+interface GetReservationsParams {
+  listingId?: string;
+  userId?: string;
+  authorId?: string;
+}
+
+export async function getReservations(params: GetReservationsParams) {
+  try {
+    const { listingId, userId, authorId } = params;
+
+    const query: any = {};
+
+    if (listingId) {
+      query.listingId = listingId;
+    }
+
+    if (userId) {
+      query.userId = userId;
+    }
+
+    if (authorId) {
+      query.listingId = { userId: authorId };
+    }
+
+    const reservations = await Reservation.find(query)
+      .sort({ createdAt: -1 })
+      .populate({ path: 'listingId', model: Listing, select: '_id userId' });
+
+    return reservations;
+  } catch (error: any) {
+    throw new Error(error);
+  }
+}

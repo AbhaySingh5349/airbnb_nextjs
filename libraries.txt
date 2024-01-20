@@ -113,3 +113,5 @@ npm install next-cloudinary
 
 // for date manipulation
 npm i date-fns
+npm install react-date-range
+npm i --save-dev @types/react-date-range

@@ -5,7 +5,6 @@ import { ReservationInterface } from './shared.types';
 const ReservationSchema = new Schema<ReservationInterface>({
   userId: { type: Schema.Types.ObjectId, ref: 'User' },
   listingId: { type: Schema.Types.ObjectId, ref: 'Listing' },
-  description: { type: String, required: true },
   startDate: { type: Date, required: true },
   endDate: { type: Date, required: true },
   totalPrice: { type: Number, required: true },

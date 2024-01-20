@@ -2,7 +2,7 @@ import React from 'react';
 
 import { EmptyState, Listing } from '@/components';
 
-import { getCurrentUser, getListingById } from '@/lib/actions';
+import { getCurrentUser, getListingById, getReservations } from '@/lib/actions';
 
 // import { NextResponse } from 'next/server';
 
@@ -23,11 +23,18 @@ const Page = async ({ params }: IParams) => {
   console.log('listing is: ', listing);
 
   const stringifyUser = currentUser ? JSON.stringify(currentUser) : '';
+  const reservations = await getReservations({ listingId: listing._id });
+
+  console.log('reservations: ', reservations);
 
   return (
     <div>
       {/* @ts-ignore */}
-      <Listing currentUser={stringifyUser} listing={JSON.stringify(listing)} />
+      <Listing
+        currentUser={stringifyUser}
+        listing={JSON.stringify(listing)}
+        reservations={JSON.stringify(reservations)}
+      />
     </div>
   );
 };
