@@ -54,17 +54,6 @@ export const addListing = async (params: any) => {
   }
 };
 
-// export interface IListingsParams {
-//   userId?: string;
-//   guestCount?: number;
-//   roomCount?: number;
-//   bathroomCount?: number;
-//   startDate?: string;
-//   endDate?: string;
-//   locationValue?: string;
-//   category?: string;
-// }
-
 // export async function getListings(params: IListingsParams) {
 //   try {
 //     const {
@@ -145,11 +134,30 @@ export const addListing = async (params: any) => {
 //   }
 // }
 
-export const getListings = async () => {
+export interface IListingsParams {
+  userId?: string;
+  guestCount?: number;
+  roomCount?: number;
+  bathroomCount?: number;
+  startDate?: string;
+  endDate?: string;
+  location?: string;
+  category?: string;
+}
+
+export const getListings = async (params: IListingsParams) => {
   try {
     await connectToDB();
 
-    const listings = await Listing.find({});
+    const { userId } = params;
+
+    const query: any = {};
+
+    if (userId) {
+      query.userId = userId;
+    }
+
+    const listings = await Listing.find(query);
     return listings;
   } catch (err: any) {
     console.log('error in get listings: ', err);

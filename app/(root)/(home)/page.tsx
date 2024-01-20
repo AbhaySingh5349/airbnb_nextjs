@@ -2,12 +2,16 @@ import React from 'react';
 
 import { Container, EmptyState, ListingCard } from '@/components';
 
-import { getCurrentUser, getListings } from '@/lib/actions';
+import { getCurrentUser, getListings, IListingsParams } from '@/lib/actions';
 
-const Page = async () => {
+interface HomeParams {
+  params: IListingsParams;
+}
+
+const Page = async ({ params }: HomeParams) => {
   const currentUser = await getCurrentUser();
 
-  const listings = await getListings();
+  const listings = await getListings(params);
 
   if (!listings) {
     return <EmptyState />;

@@ -30,3 +30,4 @@ export { default as ListingReservation } from './listings/ListingReservation';
 export { default as Trips } from './trips/Trips';
 export { default as Reservations } from './reservations/Reservations';
 export { default as Favourites } from './favourites/Favourites';
+export { default as Properties } from './properties/Properties';
