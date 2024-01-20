@@ -115,3 +115,8 @@ npm install next-cloudinary
 npm i date-fns
 npm install react-date-range
 npm i --save-dev @types/react-date-range
+
+// to deal with conflicting dependencies
+npm config set legacy-peer-deps true
+npm update --save --legacy-peer-deps
+npm install
