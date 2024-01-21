@@ -1,21 +1,23 @@
-export const dynamic = 'force-dynamic';
-
 import React from 'react';
 
 import { Container, EmptyState, ListingCard } from '@/components';
 
 import { getCurrentUser, getListings } from '@/lib/actions';
 
+// interface HomeParams {
+//   searchParams: {
+//     guestCount?: number;
+//     roomCount?: number;
+//     bathroomCount?: number;
+//     startDate?: string;
+//     endDate?: string;
+//     location?: string;
+//     category?: string;
+//   };
+// }
+
 interface HomeParams {
-  searchParams: {
-    guestCount?: number;
-    roomCount?: number;
-    bathroomCount?: number;
-    startDate?: string;
-    endDate?: string;
-    location?: string;
-    category?: string;
-  };
+  searchParams: { [key: string]: string | undefined };
 }
 
 const Page = async ({ searchParams }: HomeParams) => {
