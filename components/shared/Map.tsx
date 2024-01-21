@@ -2,6 +2,7 @@
 
 import L from 'leaflet';
 import { MapContainer, Marker, TileLayer } from 'react-leaflet';
+// import {}
 
 import 'leaflet/dist/leaflet.css';
 import markerIcon2x from 'leaflet/dist/images/marker-icon-2x.png';
@@ -25,6 +26,8 @@ const attribution =
   '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
 
 const Map = ({ center }: MapProps) => {
+  if (!process.env.BROWSER) return null;
+
   return (
     <MapContainer
       center={(center as L.LatLngExpression) || [51, -0.09]}

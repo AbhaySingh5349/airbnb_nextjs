@@ -6,7 +6,6 @@ import { getCurrentUser, getListings } from '@/lib/actions';
 
 interface HomeParams {
   searchParams: {
-    userId?: string;
     guestCount?: number;
     roomCount?: number;
     bathroomCount?: number;
@@ -22,6 +21,7 @@ const Page = async ({ searchParams }: HomeParams) => {
 
   console.log('HOME PARAMS: ', searchParams);
   const listings = await getListings(searchParams);
+  // const listings = null;
 
   if (!listings) {
     return <EmptyState />;
