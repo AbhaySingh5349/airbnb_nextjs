@@ -38,3 +38,5 @@ const Page = async ({ params }: IParams) => {
 };
 
 export default Page;
+
+export const dynamic = 'force-dynamic';

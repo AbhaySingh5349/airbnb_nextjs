@@ -31,3 +31,5 @@ const ReservationsPage = async () => {
 };
 
 export default ReservationsPage;
+
+export const dynamic = 'force-dynamic';
