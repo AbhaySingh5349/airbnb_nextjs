@@ -1,6 +1,6 @@
 import { EmptyState, Properties } from '@/components';
 
-import { getCurrentUser, getListings } from '@/lib/actions';
+import { getCurrentUser, getMyProperties } from '@/lib/actions';
 
 const PropertiesPage = async () => {
   const currentUser = await getCurrentUser();
@@ -10,7 +10,7 @@ const PropertiesPage = async () => {
   }
 
   // get bookings of other people on my listings
-  const properties = await getListings({ userId: currentUser._id });
+  const properties = await getMyProperties({ userId: currentUser._id });
   console.log('MY PROPERTIES: ', properties);
 
   if (properties.length === 0) {

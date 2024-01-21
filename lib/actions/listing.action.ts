@@ -55,7 +55,7 @@ export const addListing = async (params: any) => {
 };
 
 export interface IListingsParams {
-  userId?: string;
+  // userId?: string;
   guestCount?: number;
   roomCount?: number;
   bathroomCount?: number;
@@ -70,7 +70,7 @@ export const getListings = async (params: IListingsParams) => {
     await connectToDB();
 
     const {
-      userId,
+      // userId,
       guestCount,
       roomCount,
       bathroomCount,
@@ -82,9 +82,9 @@ export const getListings = async (params: IListingsParams) => {
 
     const query: any = {};
 
-    if (userId) {
-      query.userId = userId;
-    }
+    // if (userId) {
+    //   query.userId = userId;
+    // }
 
     if (category) {
       query.category = category;
@@ -139,6 +139,12 @@ export const getListings = async (params: IListingsParams) => {
     console.log('error in get listings: ', err);
     throw new Error(err);
   }
+};
+
+export const getMyProperties = async (params: any) => {
+  const { userId } = params;
+  const listings = await Listing.find({ userId });
+  return listings;
 };
 
 export const getListingById = async (params: any) => {
