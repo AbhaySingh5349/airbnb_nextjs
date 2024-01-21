@@ -82,9 +82,9 @@ export const getListings = async (params: IListingsParams) => {
 
     const query: any = {};
 
-    // if (userId) {
-    //   query.userId = userId;
-    // }
+    if (userId) {
+      query.userId = userId;
+    }
 
     if (category) {
       query.category = category;
