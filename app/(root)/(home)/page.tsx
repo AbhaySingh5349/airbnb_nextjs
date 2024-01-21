@@ -49,3 +49,5 @@ const Page = async ({ searchParams }: HomeParams) => {
 };
 
 export default Page;
+
+export const dynamic = 'force-dynamic';
